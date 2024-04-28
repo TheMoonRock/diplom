@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Django на METANIT.COM</title>
+</head>
+<body>
+    {{ body }}
+ 
+    {% autoescape off %}
+        {{ body }}
+    {% endautoescape %}
+
+	{% comment %}
+		<p>Вывод содержимого в шаблоне Django</p>
+	{%endcomment%}
+
+</body>
+</html>

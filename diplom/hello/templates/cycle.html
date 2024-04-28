@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Тех поддержка</title>
+	<meta charset="utf-8" />
+</head>
+<body>
+	<ul>
+		{% for lan in langs%}
+		<li>{{ lan }}</li>
+		{% empty %}
+		<li>Langs array is empty</li>
+		{% endfor %}
+	</ul>
+
+	{% with org="НТЦ ПАО КАМАЗ" day_before_deadline="30" %}
+		<div>
+			<p> Organization: {{ org }}</p>
+			<p> Deadline: {{ day_before_deadline|add:" Дней до сдачи проекта" }}</p>
+		</div>
+	{% endwith %}
+
+	{% with isEnabled=False %}
+		{{isEnabled|default:"unabled" }}
+	{% endwith %}
+
+	<h3> {{ mydate|date:"d.m.Y" }} </h3>
+
+</body>
+</html>

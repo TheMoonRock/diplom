@@ -55,7 +55,9 @@ ROOT_URLCONF = 'diplom.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / "diplom/templates",
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
