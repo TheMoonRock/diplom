@@ -1,3 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Index{% endblock title %}
 {% block header %}Главная{% endblock header %}
+
+{% block podcontent %}
+<div>{% include "banner.html" with tutorial="Python" site="METANIT.com" %}</div>
+
+{% endblock podcontent %}

@@ -126,3 +126,9 @@ def razmetka_cycle(request):
 def something_123(request):
     return render(request, "something.html")
 
+def index1(request):
+    return render(request, "index1.html")
+
+def contacts1(request):
+    return render(request, "contacts1.html")
+

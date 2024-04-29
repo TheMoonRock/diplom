@@ -50,4 +50,6 @@ urlpatterns = [
     path("razmetka_contact/", views.razmetka_contact),
     path("razmetka_cycle/", views.razmetka_cycle),
     path("something_123/", views.something_123),
+    path("index1/", views.index1),
+    path("contacts/", views.contacts1),
 ]
