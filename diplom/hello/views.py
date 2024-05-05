@@ -3,6 +3,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.shortcuts import render
 from django.template.response import TemplateResponse
 from datetime import datetime
+from .forms import UserForm
 
 def index(request):
     road = request.get_port()
@@ -127,8 +128,34 @@ def something_123(request):
     return render(request, "something.html")
 
 def index1(request):
-    return render(request, "index1.html")
+    return render(request, "index1.html", context={"site":"METANIT.COM"})
 
 def contacts1(request):
     return render(request, "contacts1.html")
 
+def index2(request):
+    return render(request, "index2.html")
+ 
+def postuser(request):
+    # получаем из данных запроса POST отправленные через форму данные
+    name = request.POST.get("name", "Undefined")
+    age = request.POST.get("age", 1)
+    langs = request.POST.getlist("languages", ["python"])
+
+    return HttpResponse(f"""
+        <div>Name: {name}  Age: {age}</div>
+        <div>Languages: {langs}</div>
+        """)
+
+def index3(request):
+    userform = UserForm()
+    return render(request, "index3.html", {"form": userform})
+
+def index3(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        age = request.POST.get("age")
+        return HttpResponse(f"<h2>Привет, {name}, твой возраст: {age}</h2>")
+    else:
+        userform = UserForm()
+        return render(request, "index3.html", {"form": userform})

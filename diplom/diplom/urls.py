@@ -52,4 +52,7 @@ urlpatterns = [
     path("something_123/", views.something_123),
     path("index1/", views.index1),
     path("contacts/", views.contacts1),
+    path("index2/", views.index2),
+    path("index2/postuser/", views.postuser),
+    path("index3/", views.index3),
 ]
