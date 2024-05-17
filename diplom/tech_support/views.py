@@ -1,25 +1,29 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import problems, status_storage
+from .models import problems
 from django import forms
 
 # Create your views here.
 
-class status_storage_form(forms.ModelForm):
-    class some_base:
+class ProblemsForm(forms.ModelForm):
+    class Meta:
         model = problems
-        fields = ['status_storage']
+        fields = ['id_request', 'id_employee', 'request_from_date', 'name_of_problem', 'description_of_problem']
 
 def warning_list(request):
+    all_problems = problems.objects.all()
+
+    return HttpResponse(all_problems)
+
+def create_problem(request):
     if request.method == 'POST':
-        form = status_storage_form(request.POST)
+        form = ProblemsForm(request.POST)
         if form.is_valid():
             form.save()
-            # Выполните другие действия после сохранения формы
+            return redirect('create_problem')  # Замените на нужный URL-адрес после успешного сохранения
     else:
-        form = status_storage_form()
+        form = ProblemsForm()
     
-    context = {
-        'form': form,
-    }
-    return render(request, context)
+    return render(request, 'create_problem.html', {'form': form})
+
+
