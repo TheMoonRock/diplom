@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Problems</title>
+</head>
+<body>
+    <h1>User Problems</h1>
+    <ul>
+        {% for problem in user_problems %}
+            <li>
+                <strong>ID заявки:</strong> {{ problem.id_request }}<br>
+                <strong>Дата создания:</strong> {{ problem.request_from_date }}<br>
+                <strong>Название проблемы:</strong> {{ problem.name_of_problem }}<br>
+                <strong>Описание проблемы:</strong> {{ problem.description_of_problem }}<br>
+                <strong>Статус:</strong> {{ problem.status }}<br>
+                <strong>Дата завершения:</strong> {{ problem.date_of_finish }}<br>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

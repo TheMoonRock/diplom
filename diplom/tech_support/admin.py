@@ -2,6 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import problems
+from .models import Problems, Employee
 
-admin.site.register(problems)
+admin.site.register(Problems)
+admin.site.register(Employee)

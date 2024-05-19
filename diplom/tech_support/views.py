@@ -1,17 +1,17 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import problems
+from .models import Employee, Problems
 from django import forms
 
 # Create your views here.
 
 class ProblemsForm(forms.ModelForm):
     class Meta:
-        model = problems
-        fields = ['id_request', 'id_employee', 'request_from_date', 'name_of_problem', 'description_of_problem']
+        model = Problems
+        fields = ['id_request', 'nemployee', 'request_from_date', 'name_of_problem', 'description_of_problem']
 
 def warning_list(request):
-    all_problems = problems.objects.all()
+    all_problems = Problems.objects.all()
 
     return HttpResponse(all_problems)
 

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+    
+    <!-- Кнопка для перехода на страницу user_problems -->
+    <a href="{% url 'techsupport:user_problems' %}">
+        <button>User Problems</button>
+    </a>
+    
+    <!-- Кнопка для перехода на страницу create_problems -->
+    <a href="{% url 'techsupport:create_problem' %}">
+        <button>Create Problems</button>
+    </a>
+    
+    <!-- Кнопка для выхода (logout) -->
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>

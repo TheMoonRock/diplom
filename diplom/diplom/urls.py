@@ -59,5 +59,5 @@ urlpatterns = [
     path("index3/", views.index3),
     path('tech_support/', include('tech_support.urls')),
     path('admin/', admin.site.urls),
-
+    path('accounts', include(django.contrib.auth.urls)),
 ]
