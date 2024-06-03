@@ -2,17 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
-# Create your models here.
-"""
-class Employee(models.Model):
-    n_emp = models.BigIntegerField()
-
-    def __str__(self):
-        return f'{self.n_emp}'
-"""
 class Problems(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
-    id_request = models.BigIntegerField()
+    id_request = models.AutoField(primary_key=True)
     nemployee = models.BigIntegerField()
     request_from_date = models.DateField()
     name_of_problem = models.CharField(max_length=80)

@@ -1,12 +1,10 @@
 from django.contrib import admin
+from .models import Problems
 
-# Register your models here.
-
-from .models import Problems #Employee
 class ProblemsAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('user', 'id_request', 'nemployee', 'request_from_date', 'name_of_problem', 'description_of_problem')
+            'fields': ('user', 'nemployee', 'request_from_date', 'name_of_problem', 'description_of_problem')
         }),
         ('Статус заявки', {
             'fields': ('status', 'date_of_finish'),

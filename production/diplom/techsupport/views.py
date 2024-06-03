@@ -10,26 +10,27 @@ from .forms import UserLoginForm
 # Create your views here.
 
 class UserLoginView(LoginView):
-    template_name = 'user_login.html'  # Создайте шаблон user_login.html для отображения формы аутентификации
+    template_name = 'user_login.html'
     form_class = UserLoginForm
-    success_url = reverse_lazy('user_problems')  # После успешной аутентификации перенаправить на страницу user_problems
+    success_url = reverse_lazy('user_problems')
 
 class ProblemsForm(forms.ModelForm):
     class Meta:
         model = Problems
-        fields = ['id_request', 'nemployee', 'request_from_date', 'name_of_problem', 'description_of_problem']
+        fields = ['nemployee', 'request_from_date', 'name_of_problem', 'description_of_problem']
 
 def warning_list(request):
     all_problems = Problems.objects.all()
-
     return HttpResponse(all_problems)
 
 def create_problem(request):
     if request.method == 'POST':
         form = ProblemsForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect(reverse_lazy('techsupport:profile'))  # Замените на нужный URL-адрес после успешного сохранения
+            problem = form.save(commit=False)
+            problem.user = request.user
+            problem.save()
+            return redirect('techsupport:profile')
     else:
         form = ProblemsForm()
     

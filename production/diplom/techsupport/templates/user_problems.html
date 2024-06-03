@@ -7,6 +7,11 @@
     <title>User Problems</title>
 </head>
 <body>
+	{% if request.user.is_authenticated %}
+		<p>Вы залогинены как {{ request.user.username }}</p>
+	{% else %}
+		<p>Вы не залогинены</p>
+	{% endif %}
     <h1>User Problems</h1>
     <ul>
         {% for problem in user_problems %}
