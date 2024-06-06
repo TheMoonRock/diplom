@@ -1,7 +1,7 @@
 from django import forms
-from .models import Computer
+from .models import OfficeEquipment, LicenseTimer
 
-class ComputerForm(forms.ModelForm):
+class OfficeEquipmentForm(forms.ModelForm):
     class Meta:
-        model = Computer
-        fields = ['name', 'description', 'serial_number', 'assigned_user', 'location']
+        model = OfficeEquipment
+        fields = ('name', 'description', 'category', 'status', 'user', 'department', 'delivery_date')

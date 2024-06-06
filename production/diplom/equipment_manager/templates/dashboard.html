@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .section p {
+            margin-bottom: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard</h1>
+        {% if license_timer %}
+            <div class="section">
+                <h2>License Timers</h2>
+                <p>OS: {{ license_timer.os_timer }}</p>
+                <p>Antivirus: {{ license_timer.antivirus_timer }}</p>
+                <p>Office: {{ license_timer.office_timer }}</p>
+            </div>
+        {% else %}
+            <p>No license timers found.</p>
+        {% endif %}
+        {% if user_equipment %}
+            <div class="section">
+                <h2>User Equipment</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>User</th>
+                            <th>Department</th>
+                            <th>Delivery Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for equipment in user_equipment %}
+                        <tr>
+                            <td>{{ equipment.id_device }}</td>
+                            <td>{{ equipment.name }}</td>
+                            <td>{{ equipment.description }}</td>
+                            <td>{{ equipment.category }}</td>
+                            <td>{{ equipment.status }}</td>
+                            <td>{{ equipment.user }}</td>
+                            <td>{{ equipment.department }}</td>
+                            <td>{{ equipment.delivery_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No equipment found for the user.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
+

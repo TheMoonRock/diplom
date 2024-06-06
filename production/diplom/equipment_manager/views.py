@@ -1,17 +1,16 @@
-from django.shortcuts import render, redirect
-from .models import Computer
-from .forms import ComputerForm
+from django.shortcuts import render
+from .models import LicenseTimer, OfficeEquipment
+from django.contrib.auth.decorators import login_required
 
-def computer_list(request):
-    computers = Computer.objects.all()
-    return render(request, 'computer_list.html', {'computers': computers})
+@login_required
+def dashboard(request):
+    user = request.user
+    license_timer = LicenseTimer.objects.first()
+    user_equipment = OfficeEquipment.objects.filter(user=user)
 
-def add_computer(request):
-    if request.method == 'POST':
-        form = ComputerForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('equipment_manager:computer_list')
-    else:
-        form = ComputerForm()
-    return render(request, 'add_computer.html', {'form': form})
+    context = {
+        'license_timer': license_timer,
+        'user_equipment': user_equipment,
+    }
+    return render(request, 'dashboard.html', context)
+

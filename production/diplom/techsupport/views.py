@@ -17,7 +17,7 @@ class UserLoginView(LoginView):
 class ProblemsForm(forms.ModelForm):
     class Meta:
         model = Problems
-        fields = ['nemployee', 'request_from_date', 'name_of_problem', 'description_of_problem']
+        fields = ['request_from_date', 'name_of_problem', 'description_of_problem']
 
 def warning_list(request):
     all_problems = Problems.objects.all()
