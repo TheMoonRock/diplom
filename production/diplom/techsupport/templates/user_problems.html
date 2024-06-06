@@ -24,18 +24,17 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .problem {
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .table th, .table td {
             border: 1px solid #ddd;
-            border-radius: 5px;
             padding: 10px;
-            margin-bottom: 10px;
         }
-        .problem strong {
-            display: inline-block;
-            width: 150px;
-        }
-        .problem p {
-            margin: 5px 0;
+        .table th {
+            background-color: #f0f0f0;
+            cursor: pointer;
         }
         .status {
             font-weight: bold;
@@ -56,16 +55,72 @@
             <p>Вы не залогинены</p>
         {% endif %}
         <h1>User Problems</h1>
-        {% for problem in user_problems %}
-            <div class="problem">
-                <p><strong>ID заявки:</strong> {{ problem.id_request }}</p>
-                <p><strong>Дата создания:</strong> {{ problem.request_from_date }}</p>
-                <p><strong>Название проблемы:</strong> {{ problem.name_of_problem }}</p>
-                <p><strong>Описание проблемы:</strong> {{ problem.description_of_problem }}</p>
-                <p><strong>Статус:</strong> <span class="status {% if problem.status == 'Open' %}open{% else %}closed{% endif %}">{{ problem.status }}</span></p>
-                <p><strong>Дата завершения:</strong> {{ problem.date_of_finish }}</p>
-            </div>
-        {% endfor %}
+        <table class="table" id="myTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">ID заявки</th>
+                    <th onclick="sortTable(1)">Дата создания</th>
+                    <th onclick="sortTable(2)">Название проблемы</th>
+                    <th onclick="sortTable(3)">Описание проблемы</th>
+                    <th onclick="sortTable(4)">Статус</th>
+                    <th onclick="sortTable(5)">Дата завершения</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for problem in user_problems %}
+                    <tr>
+                        <td>{{ problem.id_request }}</td>
+                        <td>{{ problem.request_from_date }}</td>
+                        <td>{{ problem.name_of_problem }}</td>
+                        <td>{{ problem.description_of_problem }}</td>
+                        <td><span class="status {% if problem.status == 'Open' %}open{% else %}closed{% endif %}">{{ problem.status }}</span></td>
+                        <td>{{ problem.date_of_finish }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+    <script>
+        function sortTable(column) {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("myTable");
+            switching = true;
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < rows.length - 1; i++) {
+                    shouldSwitch = false;
+                    x = rows[i].cells[column].textContent;
+                    y = rows[i + 1].cells[column].textContent;
+                    if (column === 1 || column === 5) {
+                        // Сортировка по датам
+                        var xDate = new Date(x);
+                        var yDate = new Date(y);
+                        if (xDate > yDate) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (column === 4) {
+                        // Сортировка по статусам
+                        if (x.toLowerCase() > y.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else {
+                        // Сортировка по другим столбцам
+                        if (x.toLowerCase() > y.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
 </body>
 </html>
+

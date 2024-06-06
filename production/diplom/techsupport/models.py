@@ -9,10 +9,14 @@ class Problems(models.Model):
     name_of_problem = models.CharField(max_length=80)
     description_of_problem = models.CharField(max_length=256)
     STATUS_CHOICES = (
-        ('Критично', 'Критично'),
-        ('Не критично', 'Не критично'),
+        ('Открыта', 'Открыта'),
+        ('В работе', 'В работе'),
+        ('Выполнена', 'Выполнена'),
+        ('Отклонена', 'Отклонена'),
+        ('Ожидает', 'Ожидает'),
+        ('На доработку', 'На доработку'),
     )
-    status = models.CharField(max_length=50, choices=STATUS_CHOICES, blank=True)
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Открыта', blank=True)
     date_of_finish = models.DateField(null=True, blank=True)
 
     def __str__(self):

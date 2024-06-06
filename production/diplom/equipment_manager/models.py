@@ -15,9 +15,10 @@ class OfficeEquipment(models.Model):
         return f"{self.name} ({self.category})"
 
 class LicenseTimer(models.Model):
-    os_timer = models.DurationField(verbose_name="Таймер ОС")
-    antivirus_timer = models.DurationField(verbose_name="Таймер Антивируса")
-    office_timer = models.DurationField(verbose_name="Таймер Офиса")
+    os_timer = models.DateTimeField(verbose_name="Таймер ОС")
+    antivirus_timer = models.DateTimeField(verbose_name="Таймер Антивируса")
+    office_timer = models.DateTimeField(verbose_name="Таймер Офиса")
 
     def __str__(self):
         return f"ОС: {self.os_timer}, Антивирус: {self.antivirus_timer}, Офис: {self.office_timer}"
+
