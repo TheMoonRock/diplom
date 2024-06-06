@@ -55,6 +55,7 @@
             <p>Вы не залогинены</p>
         {% endif %}
         <h1>User Problems</h1>
+        <button class="btn btn-primary" onclick="printTable()">Print</button>
         <table class="table" id="myTable">
             <thead>
                 <tr>
@@ -119,6 +120,14 @@
                     switching = true;
                 }
             }
+        }
+        function printTable() {
+            var table = document.getElementById("myTable");
+            var printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write('<html><head><title>User Problems</title></head><body>');
+            printWindow.document.write(table.outerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.print();
         }
     </script>
 </body>
