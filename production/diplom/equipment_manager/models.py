@@ -5,8 +5,38 @@ class OfficeEquipment(models.Model):
     id_device = models.AutoField(primary_key=True, verbose_name="ID устройства")
     name = models.CharField(max_length=100, verbose_name="Наименование")
     description = models.TextField(verbose_name="Описание")
-    category = models.CharField(max_length=50, verbose_name="Категория")
-    status = models.CharField(max_length=50, verbose_name="Статус оборудования")
+    STATUS_CHOICES1 = (
+        ('Компьютеры', 'Компьютеры'),
+        ('Телефоны', 'Телефоны'),
+        ('Принтер', 'Принтер'),
+        ('Сканер', 'Сканер'),
+        ('Копировальные аппараты', 'Копировальные аппараты'),
+        ('Факсимильные аппараты', 'Факсимильные аппараты'),
+        ('Многофункциональные устройства (МФУ)', 'Многофункциональные устройства (МФУ)'),
+        ('Серверы', 'Серверы'),
+        ('Плоттеры', 'Плоттеры'),
+        ('Шредеры', 'Шредеры'),
+        ('Калькуляторы', 'Калькуляторы'),
+        ('Ноутбуки', 'Ноутбуки'),
+        ('Мониторы', 'Мониторы'),
+        ('Клавиатуры', 'Клавиатуры'),
+        ('Мыши', 'Мыши'),
+        ('Сетевое оборудование (роутеры, свитчи, хабы)', 'Сетевое оборудование (роутеры, свитчи, хабы)'),
+        ('Источники бесперебойного питания (ИБП)', 'Источники бесперебойного питания (ИБП)'),
+        ('Кабели и разъемы', 'Кабели и разъемы'),
+        ('Картриджи и тонеры', 'Картриджи и тонеры'),
+        ('Бумага и другие расходные материалы', 'Бумага и другие расходные материалы'),
+    )
+    category = models.CharField(max_length=70, choices=STATUS_CHOICES1, verbose_name="Категория")
+    STATUS_CHOICES = (
+        ('В работе', 'В работе'),
+        ('В ремонте', 'В ремонте'),
+        ('В запасе', 'В запасе'),
+        ('Списана', 'Списана'),
+        ('Неизвестно', 'Неизвестно'),
+        ('В утилизации', 'В утилизации'),
+    )
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, verbose_name="Статус оборудования")
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Пользователь")
     department = models.CharField(max_length=50, verbose_name="Отдел")
     delivery_date = models.DateField(verbose_name="Дата поставки")

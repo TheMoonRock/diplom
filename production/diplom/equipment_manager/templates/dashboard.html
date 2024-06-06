@@ -66,17 +66,17 @@
         {% if user_equipment %}
             <div class="section">
                 <h2>User Equipment</h2>
-                <table>
+                <table id="equipment-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Status</th>
-                            <th>User</th>
-                            <th>Department</th>
-                            <th>Delivery Date</th>
+                            <th onclick="sortTable(0)">ID</th>
+                            <th onclick="sortTable(1)">Name</th>
+                            <th onclick="sortTable(2)">Description</th>
+                            <th onclick="sortTable(3)">Category</th>
+                            <th onclick="sortTable(4)">Status</th>
+                            <th onclick="sortTable(5)">User</th>
+                            <th onclick="sortTable(6)">Department</th>
+                            <th onclick="sortTable(7)">Delivery Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,6 +94,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <button onclick="printTable()">Print</button>
             </div>
         {% else %}
             <p>No equipment found for the user.</p>
@@ -101,40 +102,87 @@
     </div>
 
     <script>
-    // Функция для обратного отсчета
-    function startCountdown(countDownDate, countdownElementId) {
-        // Обновляйте отсчет каждую секунду
-        var x = setInterval(function() {
-            // Получите текущую дату и время
-            var now = new Date().getTime();
+        // Функция для обратного отсчета
+        function startCountdown(countDownDate, countdownElementId) {
+            // Обновляйте отсчет каждую секунду
+            var x = setInterval(function() {
+                // Получите текущую дату и время
+                var now = new Date().getTime();
 
-            // Найдите расстояние между текущей датой и датой отсчета
-            var distance = countDownDate - now;
+                // Найдите расстояние между текущей датой и датой отсчета
+                var distance = countDownDate - now;
 
-            // Вычисления для дней, часов, минут и секунд
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                // Вычисления для дней, часов, минут и секунд
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Вывод результата в соответствующий элемент
-            document.getElementById(countdownElementId).innerHTML = "Обратный отсчет: " + days + "д " + hours + "ч " + minutes + "м " + seconds + "с ";
+                // Вывод результата в соответствующий элемент
+                document.getElementById(countdownElementId).innerHTML = "Обратный отсчет: " + days + "д " + hours + "ч " + minutes + "м " + seconds + "с ";
 
-            // Если отсчет закончен, напишите какое-то сообщение 
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById(countdownElementId).innerHTML = "Лицензия истекла!";
+                // Если отсчет закончен, напишите какое-то сообщение 
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById(countdownElementId).innerHTML = "Лицензия истекла!";
+                }
+            }, 1000);
+        }
+
+        // Запуск обратного отсчета для каждого таймера
+        startCountdown(new Date("2024-09-18T06:00:00"), "os-countdown");
+        startCountdown(new Date("2025-01-15T06:00:00"), "antivirus-countdown");
+        startCountdown(new Date("2024-12-18T06:00:00"), "office-countdown");
+
+        // Функция для сортировки таблицы
+        function sortTable(column) {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("equipment-table");
+            switching = true;
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < rows.length - 1; i++) {
+                    shouldSwitch = false;
+                    x = rows[i].cells[column].textContent;
+                    y = rows[i + 1].cells[column].textContent;
+                    if (column === 3) {
+                        // Сортировка по категориям
+                        if (x.toLowerCase() > y.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (column === 4) {
+                        // Сортировка по статусам
+                        if (x.toLowerCase() > y.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else {
+                        // Сортировка по другим столбцам
+                        if (x.toLowerCase() > y.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
             }
-        }, 1000);
-    }
+        }
 
-    // Запуск обратного отсчета для каждого таймера
-    startCountdown(new Date("2024-09-18T06:00:00"), "os-countdown");
-    startCountdown(new Date("2025-01-15T06:00:00"), "antivirus-countdown");
-    startCountdown(new Date("2024-12-18T06:00:00"), "office-countdown");
-</script>
-
-
+        // Функция для печати таблицы
+        function printTable() {
+            var table = document.getElementById("equipment-table");
+            var printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write('<html><head><title>Equipment</title></head><body>');
+            printWindow.document.write(table.outerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.print();
+        }
+    </script>
 </body>
 </html>
 
