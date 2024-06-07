@@ -23,5 +23,4 @@ urlpatterns = [
     path('techsupport/', include('techsupport.urls', namespace='techsupport')),
     path('accounts', include('django.contrib.auth.urls')),
     path('equipment_manager/', include('equipment_manager.urls', namespace='equipment_manager')),
-
 ]
