@@ -3,11 +3,67 @@
 <head>
     <title>Print Selected</title>
     <style>
-        /* Добавьте необходимые стили для печати */
-        @media print {
-            /* Скрыть элементы, которые не нужны при печати */
-            .no-print { display: none; }
+		.container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    /* Стили для таблицы */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+        background-color: #f2f2f2;
+    }
+    
+    /* Стили для кнопки печати */
+    .кнопка-печати {
+        display: block;
+        width: 150px;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 0 auto;
+    }
+    
+    .кнопка-печати:hover {
+        background-color: #45a049;
+    }
+        /* Стили для печати */
+    @media print {
+        .no-print { display: none; }
+        
+        body {
+            font-size: 12px;
         }
+        
+        table {
+            border: none;
+        }
+        
+        th, td {
+            padding: 5px;
+            border-bottom: 1px solid #000;
+        }
+        
+        th {
+            background-color: transparent;
+        }
+    }
     </style>
 </head>
 <body>
@@ -16,12 +72,12 @@
     <table>
         <thead>
             <tr>
-                <th>User</th>
-                <th>Request Date</th>
-                <th>Problem Name</th>
-                <th>Status</th>
-                <th>Finish Date</th>
-            </tr>
+                <th>Пользователь</th>
+                <th>Дата запроса</th>
+                <th>Название проблемы</th>
+                <th>Статус</th>
+                <th>Дата завершения</th>
+			</tr>
         </thead>
         <tbody>
             {% for obj in objects %}

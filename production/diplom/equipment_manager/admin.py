@@ -4,7 +4,7 @@ from django.urls import path
 from .models import OfficeEquipment, LicenseTimer
 
 class OfficeEquipmentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'category', 'status', 'user', 'department', 'delivery_date')
+    list_display = ('id_device', 'name', 'description', 'category', 'status', 'user', 'department', 'delivery_date')
     list_per_page = 25
     ordering = ('name',)
 
