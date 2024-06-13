@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Submit a Problem</title>
+    <title>Создать заявку</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,11 +53,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>Submit a Problem</h1>
+        <h1>Создать заявку</h1>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Submit</button>
+            <button type="submit">Создать</button>
         </form>
     </div>
 </body>

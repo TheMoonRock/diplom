@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>Моё оборудование</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,15 +49,15 @@
 </head>
 <body>
     <div class="container">
-        <h1>Dashboard</h1>
+        <h1>Моё оборудование</h1>
         {% if license_timer %}
             <div class="section">
-                <h2>License Timers</h2>
-                <p>OS: {{ license_timer.os_timer }}</p>
+                <h2>До конца лицензии осталось</h2>
+                <p>ОС: {{ license_timer.os_timer }}</p>
                 <p id="os-countdown">Обратный отсчет ОС: </p>
-                <p>Antivirus: {{ license_timer.antivirus_timer }}</p>
+                <p>Антивирус: {{ license_timer.antivirus_timer }}</p>
                 <p id="antivirus-countdown">Обратный отсчет Антивируса: </p>
-                <p>Office: {{ license_timer.office_timer }}</p>
+                <p>Офис: {{ license_timer.office_timer }}</p>
                 <p id="office-countdown">Обратный отсчет Офиса: </p>
             </div>
         {% else %}
@@ -70,13 +70,13 @@
                     <thead>
                         <tr>
                             <th onclick="sortTable(0)">ID</th>
-                            <th onclick="sortTable(1)">Name</th>
-                            <th onclick="sortTable(2)">Description</th>
-                            <th onclick="sortTable(3)">Category</th>
-                            <th onclick="sortTable(4)">Status</th>
-                            <th onclick="sortTable(5)">User</th>
-                            <th onclick="sortTable(6)">Department</th>
-                            <th onclick="sortTable(7)">Delivery Date</th>
+                            <th onclick="sortTable(1)">Наименование</th>
+                            <th onclick="sortTable(2)">Описание</th>
+                            <th onclick="sortTable(3)">Категория</th>
+                            <th onclick="sortTable(4)">Статус</th>
+                            <th onclick="sortTable(5)">Пользователь</th>
+                            <th onclick="sortTable(6)">Отдел</th>
+                            <th onclick="sortTable(7)">Дата поставки</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,16 +88,16 @@
                             <td>{{ equipment.category }}</td>
                             <td>{{ equipment.status }}</td>
                             <td>{{ equipment.user }}</td>
-                            <td>{{ equipment.department }}</td>
+                            <td>{{ equipment.group }}</td>
                             <td>{{ equipment.delivery_date }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-                <button onclick="printTable()">Print</button>
+                <button onclick="printTable()">Печать</button>
             </div>
         {% else %}
-            <p>No equipment found for the user.</p>
+            <p>У вас нет оборудования.</p>
         {% endif %}
     </div>
 

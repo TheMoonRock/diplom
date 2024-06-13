@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 class OfficeEquipment(models.Model):
     id_device = models.AutoField(primary_key=True, verbose_name="ID устройства")
@@ -38,7 +38,7 @@ class OfficeEquipment(models.Model):
     )
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, verbose_name="Статус оборудования")
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Пользователь")
-    department = models.CharField(max_length=50, verbose_name="Отдел")
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Отдел", to_field='name')
     delivery_date = models.DateField(verbose_name="Дата поставки")
 
     def __str__(self):

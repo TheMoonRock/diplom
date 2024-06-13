@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>User Profile</title>
+    <title>Профиль</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,20 +49,20 @@
 </head>
 <body>
     <div class="container">
-        <h1>User Profile</h1>
+        <h1>Профиль</h1>
         <div class="nav">
             <a href="{% url 'techsupport:user_problems' %}">
-                <button>User Problems</button>
+                <button>Мои заявки</button>
             </a>
             <a href="{% url 'techsupport:create_problem' %}">
-                <button>Create Problems</button>
+                <button>Создать заявку</button>
             </a>
             <a href="{% url 'equipment_manager:dashboard' %}">
-                <button>Dashboard</button>
+                <button>Моё оборудование</button>
             </a>
             <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
-                <button type="submit">Logout</button>
+                <button type="submit">Выйти</button>
             </form>
         </div>
         <!-- Add user profile information here -->
