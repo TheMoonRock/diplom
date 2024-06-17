@@ -57,6 +57,6 @@ class LicenseTimer(models.Model):
         return f"ОС: {self.os_timer}, Антивирус: {self.antivirus_timer}, Офис: {self.office_timer}"
 
     class Meta:
-        verbose_name = 'Срок'
-        verbose_name_plural = 'Сроки'
+        verbose_name = 'Лицензия'
+        verbose_name_plural = 'Лицензии'
 
