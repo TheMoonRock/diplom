@@ -44,6 +44,10 @@ class OfficeEquipment(models.Model):
     def __str__(self):
         return f"{self.name} ({self.category})"
 
+    class Meta:
+        verbose_name = 'Оборудование'
+        verbose_name_plural = 'Оборудование'
+
 class LicenseTimer(models.Model):
     os_timer = models.DateTimeField(verbose_name="Таймер ОС")
     antivirus_timer = models.DateTimeField(verbose_name="Таймер Антивируса")
@@ -51,4 +55,8 @@ class LicenseTimer(models.Model):
 
     def __str__(self):
         return f"ОС: {self.os_timer}, Антивирус: {self.antivirus_timer}, Офис: {self.office_timer}"
+
+    class Meta:
+        verbose_name = 'Срок'
+        verbose_name_plural = 'Сроки'
 

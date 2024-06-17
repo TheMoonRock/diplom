@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
-class Problems(models.Model):
+class Problem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, verbose_name="Пользователь")
     id_request = models.AutoField(primary_key=True, verbose_name="id")
     request_from_date = models.DateField(verbose_name="Дата обращения")
@@ -21,3 +21,7 @@ class Problems(models.Model):
 
     def __str__(self):
         return f'{self.id_request} {self.request_from_date} {self.name_of_problem} {self.description_of_problem}'
+
+    class Meta:
+        verbose_name = 'Заявка'
+        verbose_name_plural = 'Заявки'

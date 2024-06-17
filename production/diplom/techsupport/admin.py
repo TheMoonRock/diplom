@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User, Group
 from django.urls import path
 from django.shortcuts import render
-from .models import Problems
+from .models import Problem
 
 class UserFilter(admin.SimpleListFilter):
     title = 'Пользователь'
@@ -21,14 +21,14 @@ class StatusFilter(admin.SimpleListFilter):
     parameter_name = 'status'
 
     def lookups(self, request, model_admin):
-        return [(status, status) for status in Problems.STATUS_CHOICES]
+        return [(status, status) for status in Problem.STATUS_CHOICES]
 
     def queryset(self, request, queryset):
         if self.value():
             return queryset.filter(status=self.value())
         return queryset
 
-class ProblemsAdmin(admin.ModelAdmin):
+class ProblemAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': ('user', 'request_from_date', 'name_of_problem', 'description_of_problem')
@@ -54,6 +54,8 @@ class ProblemsAdmin(admin.ModelAdmin):
     def print_selected(self, request, queryset):
         return render(request, 'admin/print_selected.html', {'objects': queryset})
 
+    print_selected.short_description = "Распечатать выбранные объекты"
+
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
@@ -61,4 +63,4 @@ class ProblemsAdmin(admin.ModelAdmin):
         ]
         return my_urls + urls
 
-admin.site.register(Problems, ProblemsAdmin)
+admin.site.register(Problem, ProblemAdmin)
