@@ -60,7 +60,7 @@
             <a href="{% url 'equipment_manager:dashboard' %}">
                 <button>Моё оборудование</button>
             </a>
-            <form action="{% url 'logout' %}" method="post">
+            <form action="{% url 'techsupport:user_login' %}" method="post">
                 {% csrf_token %}
                 <button type="submit">Выйти</button>
             </form>
