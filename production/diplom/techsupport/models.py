@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
@@ -25,3 +26,31 @@ class Problem(models.Model):
     class Meta:
         verbose_name = 'Заявка'
         verbose_name_plural = 'Заявки'
+
+class Note(models.Model):
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE, verbose_name="Заявка")
+    worker = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Работник")
+    note_date = models.DateField(verbose_name="Дата записи")
+    note_text = models.TextField(verbose_name="Текст записи")
+
+    def __str__(self):
+        return f'{self.problem} {self.worker} {self.note_date}'
+
+    class Meta:
+        verbose_name = 'Заметка'
+        verbose_name_plural = 'Заметки'
+
+class Feedback(models.Model):
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE, related_name='feedback')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='feedback')
+    rating = models.IntegerField(default=5, verbose_name='Оценка')
+    comment = models.TextField(verbose_name='Комментарий')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    def __str__(self):
+        return f'Feedback for problem {self.problem.id_request} by {self.user.username}'
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+

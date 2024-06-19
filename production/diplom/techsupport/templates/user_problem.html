@@ -65,6 +65,7 @@
                     <th onclick="sortTable(3)">Описание проблемы</th>
                     <th onclick="sortTable(4)">Статус</th>
                     <th onclick="sortTable(5)">Дата завершения</th>
+					<th>Оставить отзыв</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,6 +77,11 @@
                         <td>{{ problem.description_of_problem }}</td>
                         <td><span class="status {% if problem.status == 'Open' %}open{% else %}closed{% endif %}">{{ problem.status }}</span></td>
                         <td>{{ problem.date_of_finish }}</td>
+						{% if problem.status == 'Выполнена' %}
+							<td><a href="{% url 'techsupport:feedback_create' problem.id_request %}">Оставить отзыв</a></td>
+						{% else %}
+							<td></td>
+						{% endif %}
                     </tr>
                 {% endfor %}
             </tbody>
