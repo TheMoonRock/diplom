@@ -29,52 +29,6 @@ class StatusFilter(admin.SimpleListFilter):
             return queryset.filter(status=self.value())
         return queryset
 
-class ProblemAdmin(admin.ModelAdmin):
-    fieldsets = (
-        (None, {
-            'fields': ('user', 'request_from_date', 'name_of_problem', 'description_of_problem')
-        }),
-        ('Статус заявки', {
-            'fields': ('status', 'date_of_finish'),
-            'classes': ('collapse',),
-        }),
-    )
-
-    list_display = ('user', 'request_from_date', 'name_of_problem', 'status', 'date_of_finish')
-    list_per_page = 25
-    ordering = ('request_from_date',)
-
-    list_filter = (UserFilter, StatusFilter)
-
-    search_fields = ('name_of_problem', 'description_of_problem')
-
-    actions = ['print_selected']
-
-    def print_view(self, request, object_id):
-        obj = self.get_object(request, object_id)
-        return render(request, 'admin/print.html', {'object': obj})
-
-    def print_selected(self, request, queryset):
-        return render(request, 'admin/print_selected.html', {'objects': queryset})
-
-    print_selected.short_description = "Распечатать выбранные объекты"
-
-    actions = ['change_status']
-
-    def change_status(self, request, queryset):
-        for obj in queryset:
-            obj.status = 'Завершено'
-            obj.save()
-        return HttpResponse('Статус выбранных объектов изменен на "Завершено"')
-
-    change_status.short_description = "Изменить статус на 'Завершено'"
-
-    def get_urls(self):
-        urls = super().get_urls()
-        my_urls = [
-            path('print/<int:object_id>/', self.admin_site.admin_view(self.print_view), name='print_view'),
-        ]
-        return my_urls + urls
 
 class NoteInline(admin.StackedInline):
     model = Note
@@ -110,16 +64,6 @@ class ProblemWithNotesAdmin(admin.ModelAdmin):
         return render(request, 'admin/print_selected.html', {'objects': queryset})
 
     print_selected.short_description = "Распечатать выбранные объекты"
-
-    actions = ['change_status']
-
-    def change_status(self, request, queryset):
-        for obj in queryset:
-            obj.status = 'Завершено'
-            obj.save()
-        return HttpResponse('Статус выбранных объектов изменен на "Завершено"')
-
-    change_status.short_description = "Изменить статус на 'Завершено'"
 
     def get_urls(self):
         urls = super().get_urls()
